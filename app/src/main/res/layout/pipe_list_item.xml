@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/pipe_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pipe_info_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:background="@color/design_default_color_primary"
-        android:padding="@dimen/room_name_margin"
-        android:text="asdasd"
-        android:textAlignment="center"
-        android:textSize="@dimen/room_name_text_size"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/pipe_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/room_name_margin"
+            android:paddingStart="@dimen/room_name_margin_start"
+            android:text="Sensor name: asdasdasd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="textStart"
+            android:textSize="@dimen/room_name_text_size"/>
+
+        <com.github.curioustechizen.ago.RelativeTimeTextView
+            android:id="@+id/pipe_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/pipe_name"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="123123123123"
+            android:textSize="@dimen/pipe_sensor_updated_size"
+            android:paddingStart="@dimen/room_name_margin_start"
+            android:padding="@dimen/room_name_margin"
+            />
+<!--        <TextView-->
+<!--            android:id="@+id/danger_level"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Danger level: 123"-->
+<!--            android:paddingStart="@dimen/room_name_margin_start"-->
+<!--            android:textSize="@dimen/room_name_text_size"-->
+<!--            android:textAlignment="textStart"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/pipe_name"-->
+<!--            android:padding="@dimen/room_name_margin">-->
+
+<!--        </TextView>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>

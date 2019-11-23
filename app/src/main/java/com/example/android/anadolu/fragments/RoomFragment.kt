@@ -15,6 +15,7 @@ import com.example.android.anadolu.R
 import com.example.android.anadolu.adapters.RoomViewAdapter
 import com.example.android.anadolu.services.ApiClient
 import com.example.android.anadolu.services.ApiInterface
+import com.example.android.anadolu.services.Rooms
 import retrofit2.Call
 import retrofit2.Response
 
@@ -28,7 +29,7 @@ class RoomFragment : Fragment(), RoomViewAdapter.RoomClickListener {
 
     var userId = "5dd8fdc77a591b098cd721bb"
 
-    var roomList : ArrayList<String> = ArrayList()
+    var roomList : Rooms = Rooms(ArrayList())
 
     var dataFetched = false
 
@@ -49,11 +50,7 @@ class RoomFragment : Fragment(), RoomViewAdapter.RoomClickListener {
         roomRecyclerView.layoutManager = LinearLayoutManager(context)
         roomRecyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
 
-//        roomList.add("Mutfak")
-//        roomList.add("Salon")
-//        roomList.add("Oturma Odası")
-//        roomList.add("Balkon Odası")
-//        roomRecyclerView.adapter = RoomViewAdapter(roomList, this)
+
         if(dataFetched.not()){
             getRooms()
         }
@@ -65,14 +62,14 @@ class RoomFragment : Fragment(), RoomViewAdapter.RoomClickListener {
     }
 
     fun getRooms(){
-        apiInterface.getRoomsList(userId).enqueue(object : retrofit2.Callback<ArrayList<String>>{
-            override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
-                Log.i(LOG_TAG,"on failure")
+        apiInterface.getRoomsList(userId).enqueue(object : retrofit2.Callback<Rooms>{
+            override fun onFailure(call: Call<Rooms>, t: Throwable) {
+                Log.i(LOG_TAG,t.message)
             }
 
             override fun onResponse(
-                call: Call<ArrayList<String>>,
-                response: Response<ArrayList<String>>
+                call: Call<Rooms>,
+                response: Response<Rooms>
             ) {
                 dataFetched = true
                 roomList = response.body()!!

@@ -15,6 +15,7 @@ import com.example.android.anadolu.R
 import com.example.android.anadolu.adapters.PipeViewAdapter
 import com.example.android.anadolu.services.ApiClient
 import com.example.android.anadolu.services.ApiInterface
+import com.example.android.anadolu.services.Pipes
 import retrofit2.Call
 import retrofit2.Response
 
@@ -29,7 +30,7 @@ class PipeListFragment : Fragment(), PipeViewAdapter.PipeClickListener {
 
     var userId = "5dd8fdc77a591b098cd721bb"
 
-    var pipeList : ArrayList<String> = ArrayList()
+    var pipeList : Pipes = Pipes(ArrayList())
 
     var dataFetched = false
 
@@ -51,7 +52,6 @@ class PipeListFragment : Fragment(), PipeViewAdapter.PipeClickListener {
 
 
         roomName = arguments!!.getString("roomName")!!
-        activity!!.actionBar?.title = roomName
 
         pipeRecyclerView = getView()?.findViewById(R.id.pipe_list) as RecyclerView
         pipeRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -62,23 +62,23 @@ class PipeListFragment : Fragment(), PipeViewAdapter.PipeClickListener {
             getPipes()
         }
         else {
-            pipeRecyclerView.adapter = PipeViewAdapter(pipeList, this)
+            pipeRecyclerView.adapter = PipeViewAdapter(pipeList, this, roomName)
         }
     }
 
     fun getPipes(){
-        apiInterface.getPipes(userId,roomName).enqueue(object : retrofit2.Callback<ArrayList<String>>{
-            override fun onFailure(call: Call<ArrayList<String>>, t: Throwable) {
+        apiInterface.getPipes(userId,roomName).enqueue(object : retrofit2.Callback<Pipes>{
+            override fun onFailure(call: Call<Pipes>, t: Throwable) {
                 Log.i(LOG_TAG, "on failure")
             }
 
             override fun onResponse(
-                call: Call<ArrayList<String>>,
-                response: Response<ArrayList<String>>
+                call: Call<Pipes>,
+                response: Response<Pipes>
             ) {
                 dataFetched = true
                 pipeList = response.body()!!
-                pipeRecyclerView.adapter = PipeViewAdapter(pipeList, this@PipeListFragment)
+                pipeRecyclerView.adapter = PipeViewAdapter(pipeList, this@PipeListFragment, roomName)
             }
         })
     }

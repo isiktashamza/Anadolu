@@ -44,4 +44,7 @@ dependencies {
 
     //graphview
     implementation 'com.jjoe64:graphview:4.2.2'
+
+    //relative time
+    implementation 'com.github.curioustechizen.android-ago:library:1.4.0'
 }

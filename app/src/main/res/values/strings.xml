@@ -10,6 +10,14 @@
     <string name="voltage_button_name">Voltage</string>
     <string name="pipe_button_name">Pipes</string>
 
+    <string name="pipe_name_information">Sensor name: %1$d</string>
+    <string name="pipe_danger_information">Danger level: %1$d</string>
+    <string-array name="spinner_array">
+        <item>Last one hour</item>
+        <item>Last one day</item>
+        <item>Last one week</item>
+        <item>Last one month</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
