@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pipe_info_bar"
         android:layout_width="match_parent"
-        android:background="@color/design_default_color_primary"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary">
 
         <TextView
             android:id="@+id/pipe_name"
@@ -18,34 +18,31 @@
             android:padding="@dimen/room_name_margin"
             android:paddingStart="@dimen/room_name_margin_start"
             android:text="Sensor name: asdasdasd"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:textAlignment="textStart"
-            android:textSize="@dimen/room_name_text_size"/>
+            android:textSize="@dimen/room_name_text_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_watch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_update_black_18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="@dimen/room_name_margin_start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pipe_name"/>
 
         <com.github.curioustechizen.ago.RelativeTimeTextView
             android:id="@+id/pipe_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/pipe_name"
-            app:layout_constraintStart_toStartOf="parent"
+            android:padding="@dimen/room_name_margin"
+            android:paddingStart="@dimen/button_padding"
             android:text="123123123123"
             android:textSize="@dimen/pipe_sensor_updated_size"
-            android:paddingStart="@dimen/room_name_margin_start"
-            android:padding="@dimen/room_name_margin"
-            />
-<!--        <TextView-->
-<!--            android:id="@+id/danger_level"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Danger level: 123"-->
-<!--            android:paddingStart="@dimen/room_name_margin_start"-->
-<!--            android:textSize="@dimen/room_name_text_size"-->
-<!--            android:textAlignment="textStart"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/pipe_name"-->
-<!--            android:padding="@dimen/room_name_margin">-->
-
-<!--        </TextView>-->
+            app:layout_constraintStart_toEndOf="@id/image_watch"
+            app:layout_constraintTop_toBottomOf="@id/pipe_name" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -9,7 +9,8 @@
     <dimen name="pipe_sensor_updated_size">15sp</dimen>
     <dimen name="room_name_margin">10dp</dimen>
     <dimen name="room_name_margin_start">20dp</dimen>
-    <dimen name="graph_margin">16dp</dimen>
+    <dimen name="graph_margin">10dp</dimen>
     <dimen name="spinner_margin">32dp</dimen>
+    <dimen name="graph_label_text_size">12sp</dimen>
 
 </resources>

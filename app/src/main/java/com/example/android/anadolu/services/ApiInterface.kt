@@ -15,6 +15,6 @@ interface ApiInterface {
     fun getPipes(@Query("userId") userId: String, @Query("roomName") roomName:String): Call<Pipes>
 
     @GET("pipe")
-    fun getPipeData(@Query("userId") userId: String, @Query("roomName") roomName: String, @Query("pipeName") pipeId:String): Call<PipeInformation>
+    fun getPipeData(@Query("userId") userId: String, @Query("roomName") roomName: String, @Query("pipeName") pipeId:String, @Query("time") time:String): Call<PipeInformation>
 
 }

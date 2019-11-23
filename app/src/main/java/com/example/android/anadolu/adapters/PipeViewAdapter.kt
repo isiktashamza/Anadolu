@@ -66,7 +66,7 @@ class PipeViewAdapter(var pipeList: Pipes, var itemClick: PipeClickListener, var
             }
 
 
-            pipeNameView.setOnClickListener {
+            pipeInfoPanel.setOnClickListener {
                 itemClick.getItem(adapterPosition)
                 itemView.findNavController().navigate(R.id.PipeFragment, bundleOf(
                     "pipeName" to pipeList[adapterPosition].pipeName,

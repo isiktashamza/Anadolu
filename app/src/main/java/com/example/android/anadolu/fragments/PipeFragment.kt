@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import android.widget.TextView
 import com.example.android.anadolu.R
 import com.example.android.anadolu.services.ApiClient
 import com.example.android.anadolu.services.ApiInterface
@@ -17,35 +18,38 @@ import com.example.android.anadolu.services.PipeInformation
 import com.example.android.anadolu.services.Pressure
 
 import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
+import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import retrofit2.Call
 import retrofit2.Response
-import java.text.DateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    val LOG_TAG = PipeFragment::class.java.name
+    private val LOG_TAG = PipeFragment::class.java.name
 
-    var apiInterface = ApiClient().getApiClient()!!.create(ApiInterface::class.java)
+    private var apiInterface = ApiClient().getApiClient()!!.create(ApiInterface::class.java)
 
     var userId = "5dd8fdc77a591b098cd721bb"
 
+    var pipeName = ""
+    var roomName = ""
 
     lateinit var datum : List<Pressure>
 
     private lateinit var graphView : GraphView
     private lateinit var spinner: Spinner
 
+    private lateinit var timeDiff: TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(com.example.android.anadolu.R.layout.fragment_pipe, container, false)
+        return inflater.inflate(R.layout.fragment_pipe, container, false)
     }
 
 
@@ -54,6 +58,7 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         spinner = view.findViewById(R.id.spinner) as Spinner
         graphView = view.findViewById(R.id.graph) as GraphView
+        timeDiff = view.findViewById(R.id.time_diff) as TextView
 
         //spinner creation
         spinner.onItemSelectedListener = this
@@ -67,22 +72,21 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         //data request
-        val pipeName = arguments!!.getString("pipeName")
-        val roomName = arguments!!.getString("roomName")
-        pipeName?.let { roomName?.let { it1 -> getPipeData(it, it1) } }
+        pipeName = arguments!!.getString("pipeName")!!
+        roomName = arguments!!.getString("roomName")!!
+        getPipeData(pipeName, roomName,HOUR)
 
     }
 
     override fun onNothingSelected(nothing: AdapterView<*>?) {
-        setGraphBoundaries(HOUR)
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        setGraphBoundaries(spinner.selectedItem.toString())
+        getPipeData(pipeName,roomName,spinner.selectedItem.toString())
     }
 
-    private fun getPipeData(pipeName: String, roomName: String){
-        apiInterface.getPipeData(userId,roomName,pipeName).enqueue(object: retrofit2.Callback<PipeInformation>{
+    private fun getPipeData(pipeName: String, roomName: String,time:String){
+        apiInterface.getPipeData(userId,roomName,pipeName, time).enqueue(object: retrofit2.Callback<PipeInformation>{
             override fun onFailure(call: Call<PipeInformation>, t: Throwable) {
                 Log.i(LOG_TAG,"on failure")
             }
@@ -91,67 +95,48 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 call: Call<PipeInformation>,
                 response: Response<PipeInformation>
             ) {
-                response.body()?.let { createGraph(it) }
+                response.body()?.let { createGraph(it,time) }
             }
         })
     }
 
-    private fun createSeries(vals: List<Pressure>){
-        val values = arrayOfNulls<DataPoint>(vals.size)
-        for(index in vals.indices){
-            val pressure = vals[index]
+    fun createGraph(list: PipeInformation, time: String){
+
+        datum = list._pipeInfo
+
+        val values = arrayOfNulls<DataPoint>(datum.size)
+        for(index in datum.indices){
+            val pressure = datum[index]
             values[index] = DataPoint(
-                index/1000.0,
+                index/1.0,
                 pressure.pressure
             )
         }
+
+        when(time){
+            HOUR -> timeDiff.text = resources.getString(R.string.graph_one_hour_ago)
+            DAY -> timeDiff.text = resources.getString(R.string.graph_one_day_ago)
+            WEEK -> timeDiff.text = resources.getString(R.string.graph_one_week_ago)
+            else -> timeDiff.text = resources.getString(R.string.graph_one_month_ago)
+        }
+        graphView.gridLabelRenderer.isHorizontalLabelsVisible = false
+        graphView.viewport.isYAxisBoundsManual = true
+
+        val max = datum.maxBy { it.pressure }!!.pressure
+        val min = datum.minBy { it.pressure }!!.pressure
+
+        graphView.viewport.setMinY(min-2.0)
+        graphView.viewport.setMaxY(max+2.0)
+
         val series = LineGraphSeries<DataPoint>(values)
         graphView.removeAllSeries()
         graphView.addSeries(series)
 
     }
-    fun createGraph(list: PipeInformation){
-
-        datum = list._pipeInfo
-
-        createSeries(datum)
-
-        graphView.viewport.isXAxisBoundsManual = true
-        graphView.viewport.setMinX(0.0)
-        graphView.viewport.setMaxX(datum.size/1000.0)
-        graphView.viewport.isYAxisBoundsManual = true
-        graphView.viewport.setMinY(20.0)
-        graphView.viewport.setMaxY(60.0)
-        setGraphBoundaries(DAY)
-
-    }
-
-    private fun setGraphBoundaries(time:String){
-
-        if(::datum.isInitialized){
-            var filtered = ArrayList<Pressure>()
-
-            when(time){
-                HOUR -> filtered.filter { pres-> (Calendar.getInstance().timeInMillis-pres.date.time)< HOUR_MS }
-                DAY -> filtered.filter { pres ->(Calendar.getInstance().timeInMillis-pres.date.time)< DAY_MS }
-                WEEK -> filtered.filter { pres -> (Calendar.getInstance().timeInMillis-pres.date.time)< WEEK_MS }
-                MONTH -> filtered.filter { pres -> (Calendar.getInstance().timeInMillis-pres.date.time)< MONTH_MS }
-            }
-            createSeries(filtered)
-        }
-
-    }
-
-
     companion object{
-        val HOUR = "Last one hour"
-        val DAY = "Last one day"
-        val WEEK = "Last one week"
-        val MONTH = "Last one month"
-        val MONTH_MS = 259200000
-        val WEEK_MS = 60480000
-        val DAY_MS = 8640000
-        val HOUR_MS = 360000
+        const val HOUR = "Last one hour"
+        const val DAY = "Last one day"
+        const val WEEK = "Last one week"
 
     }
 }

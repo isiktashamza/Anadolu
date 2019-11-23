@@ -12,6 +12,11 @@
 
     <string name="pipe_name_information">Sensor name: %1$d</string>
     <string name="pipe_danger_information">Danger level: %1$d</string>
+    <string name="graph_now">now</string>
+    <string name="graph_one_hour_ago">one hour ago</string>
+    <string name="graph_one_day_ago">one day ago</string>
+    <string name="graph_one_week_ago">one week ago</string>
+    <string name="graph_one_month_ago">one month ago</string>
     <string-array name="spinner_array">
         <item>Last one hour</item>
         <item>Last one day</item>
