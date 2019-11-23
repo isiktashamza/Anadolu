@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Anadolu</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="gas_button_name">Gas</string>
+    <string name="water_button_name">Water</string>
+    <string name="humidity_button_name">Humidity</string>
+    <string name="fire_button_name">Fire</string>
+    <string name="electricity_button_name">Electricity</string>
+    <string name="voltage_button_name">Voltage</string>
+    <string name="pipe_button_name">Pipes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

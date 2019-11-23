@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/MainMenuFragment">
+    <fragment
+        android:id="@+id/MainMenuFragment"
+        android:name="com.example.android.anadolu.fragments.MainMenuFragment"
+        android:label="Main Menu"
+        tools:layout="@layout/fragment_main_menu">
+        <action
+            android:id="@+id/action_MainMenuFragment_to_RoomFragment"
+            app:destination="@id/RoomFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RoomFragment"
+        android:name="com.example.android.anadolu.fragments.RoomFragment"
+        android:label="Rooms"
+        tools:layout="@layout/fragment_room"
+        >
+        <action
+            android:id="@+id/action_RoomFragment_to_PipeListFragment"
+            app:destination="@id/PipeListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/PipeListFragment"
+        android:name="com.example.android.anadolu.fragments.PipeListFragment"
+        android:label="Pipes"
+        tools:layout="@layout/fragment_pipe_list"
+        >
+        <action
+            android:id="@+id/action_PipeListFragment_to_PipeFragment"
+            app:destination="@id/PipeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/PipeFragment"
+        android:name="com.example.android.anadolu.fragments.PipeFragment"
+        android:label="Pipe"
+        tools:layout="@layout/fragment_pipe"
+        />
+</navigation>
