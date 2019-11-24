@@ -24,12 +24,12 @@ class AnadoluFireBaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "Notification Message Body: " + remoteMessage.notification!!.body!!)
 
         val message = remoteMessage.notification!!.body
-        val title = remoteMessage.notification!!.title
-        val data = remoteMessage.data
+
+
         val pendingIntent = NavDeepLinkBuilder(this)
             .setComponentName(MainActivity::class.java)
             .setGraph(R.navigation.navigation_graph)
-            .setDestination(R.id.RoomFragment)
+            .setDestination(R.id.PipeFragment)
             .createPendingIntent()
 
         val channelId = "default_channel"
