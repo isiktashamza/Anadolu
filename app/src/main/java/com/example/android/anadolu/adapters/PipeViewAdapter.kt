@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
@@ -39,30 +40,19 @@ class PipeViewAdapter(var pipeList: Pipes, var itemClick: PipeClickListener, var
         val WARNING = 0
 
         private val pipeNameView = itemView.findViewById(R.id.pipe_name) as TextView
-//        private val pipeDangerLevel = itemView.findViewById(R.id.danger_level) as TextView
         private val pipeInfoPanel = itemView.findViewById(R.id.pipe_info_bar) as ConstraintLayout
         private val pipeLastUpdate = itemView.findViewById(R.id.pipe_time) as RelativeTimeTextView
+        private val healthIndicator = itemView.findViewById(R.id.health_indicator) as ImageView
         fun bindData(pipeList: ArrayList<PipeInfo>, position: Int, roomName:String){
             val pipeInfo = pipeList[position]
             pipeNameView.text = "Sensor name: " + pipeInfo.pipeName
             pipeLastUpdate.setReferenceTime(pipeList[position].lastUpdated.time)
 
             when {
-                pipeInfo.dangerLevel>=DANGER -> {
-                    pipeInfoPanel.setBackgroundColor(Color.RED)
-//                    pipeDangerLevel.text = "Critical. Need checking"
+                pipeInfo.dangerLevel>=DANGER -> healthIndicator.setBackgroundResource(R.drawable.circle_red)
+                pipeInfo.dangerLevel>0 -> healthIndicator.setBackgroundResource(R.drawable.circle_orange)
+                else -> healthIndicator.setBackgroundResource(R.drawable.circle_green)
 
-                }
-                pipeInfo.dangerLevel>0 -> {
-                    pipeInfoPanel.setBackgroundColor(Color.YELLOW)
-//                    pipeDangerLevel.text = "Warning. May need checking"
-
-                }
-                else -> {
-                    pipeInfoPanel.setBackgroundColor(Color.GREEN)
-//                    pipeDangerLevel.text = "Safe. Every thing seems normal"
-
-                }
             }
 
 

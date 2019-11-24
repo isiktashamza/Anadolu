@@ -17,6 +17,10 @@
     <string name="graph_one_day_ago">one day ago</string>
     <string name="graph_one_week_ago">one week ago</string>
     <string name="graph_one_month_ago">one month ago</string>
+    <string name="nothing_found">Oops. Nothing found</string>
+    <string name="possible_congestion">Possible congestion at this pipe is detected at %1$s.</string>
+    <string name="good_health">No problem is detected at this pipe.</string>
+
     <string-array name="spinner_array">
         <item>Last one hour</item>
         <item>Last one day</item>

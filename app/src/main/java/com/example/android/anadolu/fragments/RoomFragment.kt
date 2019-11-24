@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import com.example.android.anadolu.R
 import com.example.android.anadolu.adapters.RoomViewAdapter
@@ -19,7 +20,9 @@ import com.example.android.anadolu.services.Rooms
 import retrofit2.Call
 import retrofit2.Response
 
-class RoomFragment : Fragment(), RoomViewAdapter.RoomClickListener {
+class RoomFragment : Fragment(), RoomViewAdapter.RoomClickListener{
+
+
     override fun getItem(position: Int) {
     }
 

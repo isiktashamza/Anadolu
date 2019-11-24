@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "896382378917",
+    "firebase_url": "https://anadolusigortafirebase.firebaseio.com",
+    "project_id": "anadolusigortafirebase",
+    "storage_bucket": "anadolusigortafirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:896382378917:android:7fee46ee3c1c9ed4203e4c",
+        "android_client_info": {
+          "package_name": "com.example.android.anadolu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "896382378917-k86s74ifpqu91omojhggq7o8p7vgrje0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9Ef9MTZP3GxI4Yc2UWurY25p_ukFBFxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "896382378917-k86s74ifpqu91omojhggq7o8p7vgrje0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

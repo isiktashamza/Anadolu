@@ -7,7 +7,7 @@
         android:id="@+id/room_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/design_default_color_primary"
+        android:background="#F9AA33"
         android:padding="@dimen/room_name_margin"
         android:text="asdasd"
         android:textAlignment="center"
