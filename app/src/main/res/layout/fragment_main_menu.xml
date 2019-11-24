@@ -2,12 +2,35 @@
 
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#344955"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.MainMenuFragment">
+
+    <ImageView
+        android:id="@+id/anadolu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/unnamed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/welcome_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#232F34"
+        android:textColor="#ffffff"
+        android:padding="16dp"
+        android:layout_margin="8dp"
+        android:text="@string/nothing_found"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/anadolu"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,80 +38,82 @@
         android:layout_marginStart="@dimen/button_bottom_margin"
         android:layout_marginEnd="@dimen/button_bottom_margin"
         android:layout_marginBottom="@dimen/button_bottom_margin"
+        app:layout_constraintTop_toBottomOf="@id/welcome_text"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/pipe_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F9AA33"
-            android:textSize="@dimen/button_text_size"
             android:text="@string/pipe_button_name"
+            android:textAlignment="center"
+            android:textSize="@dimen/button_text_size"
             app:layout_constraintBottom_toTopOf="@id/water_button"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textAlignment="center"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/water_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F9AA33"
+            android:text="@string/water_button_name"
+            android:textAlignment="center"
             android:textSize="@dimen/button_text_size"
-            app:layout_constraintTop_toBottomOf="@id/pipe_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/water_button_name"
-            android:textAlignment="center"/>
+            app:layout_constraintTop_toBottomOf="@id/pipe_button" />
 
         <Button
             android:id="@+id/voltage_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F9AA33"
-            android:textSize="@dimen/button_text_size"
             android:text="@string/voltage_button_name"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/electricity_button"
+            android:textSize="@dimen/button_text_size"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/electricity_button" />
+
         <Button
             android:id="@+id/electricity_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F9AA33"
+            android:text="@string/electricity_button_name"
+            android:textAlignment="center"
             android:textSize="@dimen/button_text_size"
-            app:layout_constraintTop_toBottomOf="@id/water_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:textAlignment="center"
-            android:text="@string/electricity_button_name"/>
+            app:layout_constraintTop_toBottomOf="@id/water_button" />
 
         <Button
             android:id="@+id/gas_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/button_text_size"
             android:background="#F9AA33"
             android:text="@string/gas_button_name"
             android:textAlignment="center"
-            app:layout_constraintTop_toBottomOf="@id/voltage_button"
+            android:textSize="@dimen/button_text_size"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/voltage_button" />
 
         <Button
             android:id="@+id/humidity_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/button_text_size"
-            android:textAlignment="center"
             android:background="#F9AA33"
             android:text="@string/humidity_button_name"
-            app:layout_constraintTop_toBottomOf="@id/gas_button"
+            android:textAlignment="center"
+            android:textSize="@dimen/button_text_size"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gas_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,6 +1,7 @@
 package com.example.android.anadolu.fragments
 
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,12 +10,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.android.anadolu.R
-import com.example.android.anadolu.services.ApiClient
-import com.example.android.anadolu.services.ApiInterface
-import com.example.android.anadolu.services.PipeInformation
-import com.example.android.anadolu.services.Pressure
+import com.example.android.anadolu.services.*
 
 import com.jjoe64.graphview.GraphView
 import com.jjoe64.graphview.series.DataPoint
@@ -35,6 +32,7 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener{
     var roomName = ""
 
     var isPaused = false
+    private var open = true
     lateinit var datum : List<Pressure>
 
     private lateinit var graphView : GraphView
@@ -42,7 +40,7 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener{
 
     private lateinit var timeDiff: TextView
     private lateinit var now: TextView
-
+    private lateinit var switchValve: ImageView
     private lateinit var nothing : LinearLayout
     private lateinit var message_text : TextView
     private lateinit var progressBar : ProgressBar
@@ -74,7 +72,7 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener{
         nothing = view.findViewById(R.id.nothing_layout) as LinearLayout
         message_text = view.findViewById(R.id.message_text) as TextView
         progressBar = view.findViewById(R.id.progres_bar) as ProgressBar
-
+        switchValve = view.findViewById(R.id.switchValve) as ImageView
         //spinner creation
         spinner.onItemSelectedListener = this
         ArrayAdapter.createFromResource(
@@ -90,7 +88,6 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener{
         pipeName = arguments!!.getString("pipeName")!!
         roomName = arguments!!.getString("roomName")!!
         getPipeData(pipeName, roomName,lastChosenTime)
-
     }
 
     override fun onNothingSelected(nothing: AdapterView<*>?) {
@@ -111,9 +108,35 @@ class PipeFragment : Fragment(), AdapterView.OnItemSelectedListener{
                 call: Call<PipeInformation>,
                 response: Response<PipeInformation>
             ) {
-                response.body()?.let { createGraph(it,time) }
+                response.body()?.let {
+                    createGraph(it,time)
+                    setSwitch(it._open)
+                }
             }
         })
+    }
+
+    private fun setSwitch(_open: Boolean?) {
+        if(_open != null && _open) {
+            switchValve.setColorFilter(Color.BLUE)
+            open = true
+        }
+        else switchValve.setColorFilter(Color.RED)
+        switchValve.setOnClickListener {
+            apiInterface.switchValve(userId, pipeName).enqueue(object: retrofit2.Callback<Success>{
+                override fun onFailure(call: Call<Success>, t: Throwable) {
+                    Log.i(LOG_TAG,"on failure")
+                }
+                override fun onResponse(
+                    call: Call<Success>,
+                    response: Response<Success>
+                ) {
+                    if(open) switchValve.setColorFilter(Color.RED)
+                    else switchValve.setColorFilter(Color.BLUE)
+                    open = !open
+                }
+            })
+        }
     }
 
     fun createGraph(list: PipeInformation, time: String){

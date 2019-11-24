@@ -4,7 +4,6 @@ package com.example.android.anadolu.services
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
-import kotlin.collections.ArrayList
 
 interface ApiInterface {
 
@@ -16,5 +15,11 @@ interface ApiInterface {
 
     @GET("pipe")
     fun getPipeData(@Query("userId") userId: String, @Query("roomName") roomName: String, @Query("pipeName") pipeId:String, @Query("time") time:String): Call<PipeInformation>
+
+    @GET("switchValve")
+    fun switchValve(@Query("userId") userId: String, @Query("pipeName") roomName:String): Call<Success>
+
+    @GET("user")
+    fun getUser(@Query("userId") userId: String): Call<User>
 
 }

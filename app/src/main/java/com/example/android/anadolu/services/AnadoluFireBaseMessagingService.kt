@@ -48,7 +48,6 @@ class AnadoluFireBaseMessagingService : FirebaseMessagingService() {
         notificationBuilder.setCategory(Notification.CATEGORY_MESSAGE)
         val notificationManager =
             getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-// Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
