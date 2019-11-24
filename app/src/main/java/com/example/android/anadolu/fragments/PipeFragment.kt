@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.size
 import com.example.android.anadolu.R
 import com.example.android.anadolu.services.*
 

@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.Navigation
 import com.example.android.anadolu.MainActivity
 import com.example.android.anadolu.R
 import com.google.firebase.messaging.RemoteMessage
@@ -25,6 +26,12 @@ class AnadoluFireBaseMessagingService : FirebaseMessagingService() {
 
         val message = remoteMessage.notification!!.body
 
+        val pipeName = remoteMessage.data["pipeName"]
+        val roomName = remoteMessage.data["roomName"]
+
+        val bundle = Bundle()
+        bundle.putString("pipeName", pipeName)
+        bundle.putString("roomName", roomName)
 
         val pendingIntent = NavDeepLinkBuilder(this)
             .setComponentName(MainActivity::class.java)
@@ -62,7 +69,7 @@ class AnadoluFireBaseMessagingService : FirebaseMessagingService() {
         val notification = notificationBuilder.build()
         notification.flags = Notification.FLAG_AUTO_CANCEL
 
-        notificationManager.notify(1,notification)
+        notificationManager.notify(1, notification)
 
     }
 

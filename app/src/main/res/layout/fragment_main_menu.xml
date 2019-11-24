@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F9AA33"
-            android:text="@string/humidity_button_name"
+            android:text="@string/fire_button_name"
             android:textAlignment="center"
             android:textSize="@dimen/button_text_size"
             app:layout_constraintEnd_toEndOf="parent"
